@@ -50,7 +50,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
       .check(status.is(200))
   }
 
-  def chooseAmendResponseType(suppDoc: String, furtherInfo: String): HttpRequestBuilder = {
+  def chooseAmendResponseType(): HttpRequestBuilder = {
     http("Choose amend response type")
       .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/amendCaseResponseType")
       .headers(headers)

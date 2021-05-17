@@ -40,7 +40,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(200))
   }
 
-  def chooseJourney(journeyChoice: String, nextPage: String): HttpRequestBuilder = {
+  def chooseJourney(journeyChoice: String): HttpRequestBuilder = {
     http("Choose journey type")
       .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/what-do-you-want-to-do")
       .headers(headers)
@@ -266,7 +266,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(200))
   }
 
-  def chooseVATNoChoice(impVATChoice: String): HttpRequestBuilder = {
+  def chooseVATChoice(impVATChoice: String): HttpRequestBuilder = {
     http("Choose Importer VAT no option")
       .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/is-importer-vat-registered")
       .headers(headers)
