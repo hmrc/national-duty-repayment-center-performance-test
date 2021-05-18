@@ -21,7 +21,7 @@
         <appender-ref ref="ERROR"/>
     </logger>
     <logger name="io.gatling.http.response" level="DEBUG" additivity="false">
-        <appender-ref ref="ERROR"/>
+        <appender-ref ref="CONSOLE"/>
     </logger>
 
     <root level="WARN">
