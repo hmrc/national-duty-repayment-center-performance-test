@@ -28,9 +28,9 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(headerRegex("Location", s"${Configuration.authRedirectURL}"))
       .check(headerRegex("Set-Cookie", """mdtp=([^"]+)""").saveAs("mdtpCookie"))
 
-  def pause = new PauseBuilder(8 toSeconds, None)
+ // def pause = new PauseBuilder(8 , None)
 
-  def uploadWait = new PauseBuilder(12 toSeconds, None)
+  //def uploadWait = new PauseBuilder(12 , None)
 
   def navigateToWhatDoYouWantToDoPage: HttpRequestBuilder = {
     http("What do you want to do? Page")
@@ -428,7 +428,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/declarant-reference-number")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("decRefChoice",${decRefChoice} )
+      .formParam("decRefChoiceYes",${decRefChoice} )
       .formParam("decRefvalue", "test123456")
       .check(status.is(303))
   }
@@ -446,7 +446,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/repaid")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("RepaidChoice",${repaidChoice} )
+      .formParam("RepaidChoiceRep",${repaidChoice} )
       .formParam("decRefvalue", "test123456")
       .check(status.is(303))
   }
@@ -464,7 +464,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/indirect-representative")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("indirectRepChoice",${indirectRepChoice} )
+      .formParam("indirectRepChoiceNo",${indirectRepChoice} )
       .check(status.is(303))
   }
 
