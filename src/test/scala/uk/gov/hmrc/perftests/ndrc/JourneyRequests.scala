@@ -1,6 +1,17 @@
 /*
  * Copyright 2021 HM Revenue & Customs
  *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package uk.gov.hmrc.perftests.ndrc
@@ -423,12 +434,12 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(200))
   }
 //Choose Yes - Declarant Ref No
-  def enterDecRefNo(decRefChoice: String): HttpRequestBuilder = {
+  def enterDecRefNo: HttpRequestBuilder = {
     http("Enter Declarant Reference Number Details")
       .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/declarant-reference-number")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("decRefChoiceYes",${decRefChoice} )
+      .formParam("decRefChoiceYes","Yes" )
       .formParam("decRefvalue", "test123456")
       .check(status.is(303))
   }
@@ -441,12 +452,12 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(200))
   }
 // Choose Representative as Repaid choice
-  def chooseWhoToRepay(repaidChoice: String): HttpRequestBuilder = {
+  def chooseWhoToRepay: HttpRequestBuilder = {
     http("Choose who to repaid")
       .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/repaid")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("RepaidChoiceRep",${repaidChoice} )
+      .formParam("RepaidChoiceRep","Representative" )
       .formParam("decRefvalue", "test123456")
       .check(status.is(303))
   }
@@ -459,12 +470,12 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(200))
   }
 //Choose No - Indirect Representative
-  def chooseIndirectRepOption(indirectRepChoice: String): HttpRequestBuilder = {
+  def chooseIndirectRepOption: HttpRequestBuilder = {
     http("Choose indirect representative")
       .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/indirect-representative")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("indirectRepChoiceNo",${indirectRepChoice} )
+      .formParam("indirectRepChoiceNo","No" )
       .check(status.is(303))
   }
 
