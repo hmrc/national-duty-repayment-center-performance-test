@@ -27,7 +27,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 
   def navigateToCaseRefPage: HttpRequestBuilder = {
     http("What is the reference number? page")
-      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/referenceNumber")
+      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/referenceNumber")
       .headers(headers)
       .check(saveCsrfToken)
       .check(status.is(200))
@@ -35,7 +35,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 
   def enterCaseRefPage: HttpRequestBuilder = {
     http("Enter case reference number")
-      .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/referenceNumber")
+      .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/referenceNumber")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("caseRefNo", "NDRC21051015162W238SKS3")
@@ -44,7 +44,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 
   def navigateToAmendResponseType: HttpRequestBuilder = {
     http("What do you need to do? page")
-      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/amendCaseResponseType")
+      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/amendCaseResponseType")
       .headers(headers)
       .check(saveCsrfToken)
       .check(status.is(200))
@@ -52,7 +52,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 
   def chooseAmendResponseType(): HttpRequestBuilder = {
     http("Choose amend response type")
-      .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/amendCaseResponseType")
+      .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/amendCaseResponseType")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("typeofamendment", "UploadDocuments")
@@ -62,7 +62,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 
   def navigateToFurtherInfoPage: HttpRequestBuilder = {
     http("Give us further information page")
-      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/furtherInformation")
+      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/furtherInformation")
       .headers(headers)
       .check(saveCsrfToken)
       .check(status.is(200))
@@ -70,7 +70,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 
   def enterFurtherInfo: HttpRequestBuilder = {
     http("Enter further info")
-      .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/furtherInformation")
+      .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/furtherInformation")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("furtherInfo", "shoes, more jackets")
@@ -79,7 +79,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 //CYA
   def navigateToAmendCYA: HttpRequestBuilder = {
     http("Check your answers before sending your information page")
-      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/amend-check-your-answers")
+      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/amend-check-your-answers")
       .headers(headers)
       .check(saveCsrfToken)
       .check(status.is(200))
@@ -87,7 +87,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 
   def postAmendCYA: HttpRequestBuilder = {
     http("Enter further info")
-      .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/amend-check-your-answers")
+      .post(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/amend-check-your-answers")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
       .check(status.is(303))
@@ -95,7 +95,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 //Confirmation
   def navigateToAmendConfirmationPage: HttpRequestBuilder = {
     http("Information sent page")
-      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/amendConfirmation")
+      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/amendConfirmation")
       .headers(headers)
       .check(saveCsrfToken)
       .check(status.is(200))

@@ -42,7 +42,7 @@ object FileUploadRequests extends ServicesConfiguration with RequestUtils{
 
   def navigateToUploadMultFilesPage: HttpRequestBuilder = {
     http("Upload the multiple entries spreadsheet Page")
-      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/upload-multiple-entries")
+      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/upload-multiple-entries")
       .check(saveCsrfToken)
       .check(status.is(200))
   }
@@ -123,7 +123,7 @@ object FileUploadRequests extends ServicesConfiguration with RequestUtils{
 
   def getFileUploadInfoLocal(journey: String): HttpRequestBuilder = {
     http("Get info from file upload page")
-      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-center/upload-multiple-entries")
+      .get(s"${Configuration.baseUrlNDRC}/national-duty-repayment-centre/upload-multiple-entries")
       .check(saveFileUploadurl)
       .check(saveCallBack)
       .check(saveAmazonDate)
