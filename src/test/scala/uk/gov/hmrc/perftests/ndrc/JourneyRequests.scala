@@ -22,6 +22,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.{HttpConfiguration, ServicesConfiguration}
 import uk.gov.hmrc.perftests.ndrc.utils.{Configuration, RequestUtils}
+import scala.concurrent.duration._
 
 object JourneyRequests extends HttpConfiguration with ServicesConfiguration with RequestUtils {
 //Representative multi-entry journey
@@ -39,9 +40,9 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(headerRegex("Location", s"${Configuration.authRedirectURL}"))
       .check(headerRegex("Set-Cookie", """mdtp=([^"]+)""").saveAs("mdtpCookie"))
 
- // def pause = new PauseBuilder(8 , None)
+  def pause = new PauseBuilder(8 seconds, None)
 
-  //def uploadWait = new PauseBuilder(12 , None)
+  def uploadWait = new PauseBuilder(12 seconds, None)
 
   def navigateToWhatDoYouWantToDoPage: HttpRequestBuilder = {
     http("What do you want to do? Page")
