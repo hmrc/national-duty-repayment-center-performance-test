@@ -98,7 +98,7 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
 
   )
 
-  setup("National Duty Repayment Centre", "Amend Journey").withActions(
+  setup("National Duty Repayment Centre Amend Journey", "Amend Journey").withActions(
     navigateToAuthLoginStubPage,
     submitLogin,
 
