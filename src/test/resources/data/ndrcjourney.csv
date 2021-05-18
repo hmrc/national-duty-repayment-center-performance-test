@@ -1,2 +1,2 @@
-epu,entryNumber,entryDay,entryMonth,entryYear
-132,123515H,01,04,2021
+epu,entryNumber,entryDay,entryMonth,entryYear,decRefChoice,
+132,123515H,01,04,2021,Yes
