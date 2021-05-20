@@ -23,33 +23,32 @@ import uk.gov.hmrc.perftests.ndrc.FileUploadRequests._
 
 class NDRCServiceSimulation extends PerformanceTestRunner {
 
-
   setup("National Duty Repayment Centre", "New Journey").withActions(
     navigateToAuthLoginStubPage,
     submitLogin,
 
     navigateToWhatDoYouWantToDoPage,
-    chooseJourney("New"),
+    chooseJourney("01"),
 
     navigateToImporterorRepPage,
-    chooseImporRep("Representative"),
+    chooseImporRep("02"),
     navigateToNoEntriesPage,
-    chooseNoEntries("Multiple", "4"),
+    chooseNoEntries("02", "4"),
     navigateToEntryAccpDatePage,
-    chooseEntryAccDate("From 1 January 2021"),
+    chooseEntryAccDate("02"),
     navigateToRepaymentReasonPage,
-    chooseRepaymentReason("Overpayment of duty or VAT (Regulation 50)"),
+    chooseRepaymentReason("050"),
 
 //multiple spreadsheet file upload
 
     navigateToEnterDetailsPage,
     enterEntryDetails,
     navigateToAppRelatePage,
-    chooseAppRelatetoChoice("Preference"),
+    chooseAppRelatetoChoice("05"),
     navigateToOverpaymentReasonPage,
     enterOverpaymentReason,
     navigateToReclaimPage,
-    chooseReclaim("Customs Duty"),
+    chooseReclaim("01"),
     navigateToCustDutyPage,
     enterCustDuty,
     navigateToRepaymentAmtSummaryPage,
@@ -59,28 +58,28 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
 
 //Importer Details
     navigateToImpEORIPage,
-    chooseEoriNoChoice("Yes"),
+    chooseEoriNoChoice("01"),
     navigateToEnterImpEORIPage,
     enterImpEORINo,
     navigateToImpVATPage,
-    chooseVATChoice("Yes"),
+    chooseVATChoice("01"),
     navigateToImpNamePage,
     enterImpName,
     navigateToImpAddressPage,
     enterImpPostcode,
-    navigateToImpSelAddressPage,
+    ImpSelAddressPage,
 //Representative Details
     navigateToRepEORIPage,
-    chooseRepEoriNoChoice("Yes"),
+    chooseRepEoriNoChoice("true"),
     navigateToEnterRepEORIPage,
     enterRepEORINo,
     navigateToRepNamePage,
     enterRepName,
     navigateToRepAddressPage,
     enterRepPostcode,
-    navigateToRepSelAddressPage,
+    RepSelAddressPage,
     navigateToContactDetailsPage,
-    enterContactDetails("Email","Phone"),
+    enterContactDetails("01","02"),
 
     navigateToDecRefNoPage,
     enterDecRefNo,
@@ -101,6 +100,9 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
   setup("National Duty Repayment Centre Amend Journey", "Amend Journey").withActions(
     navigateToAuthLoginStubPage,
     submitLogin,
+
+    navigateToWhatDoYouWantToDoPage,
+    chooseJourney("02"),
 
     navigateToCaseRefPage,
     enterCaseRefPage,
