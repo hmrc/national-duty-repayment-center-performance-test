@@ -92,8 +92,8 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     navigateToBankDetailsPage,
     enterBankDetails,
     navigateToCYAPage,
-    postCYA,
-    navigateToConfirmationPage
+   // postCYA,
+  //  navigateToConfirmationPage
 
   )
 
