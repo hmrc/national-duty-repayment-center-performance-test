@@ -38,7 +38,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/referenceNumber")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("value", "NDRC21051015162W238SKS3")
+      .formParam("value", "NDRC2105241644B5A8E7CL6")
       .check(status.is(303))
   }
 
