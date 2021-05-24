@@ -101,7 +101,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/what-do-you-want-to-do")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("newOrAmendCase", s"$journeyChoice")
+      .formParam("value", s"$journeyChoice")
       .check(status.is(303))
   }
 
@@ -118,7 +118,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/importer-or-representative")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("imporrep", s"$imporrepChoice")
+      .formParam("value", s"$imporrepChoice")
       .check(status.is(303))
   }
 
@@ -135,8 +135,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/how-many-entries-submitting")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("noOfEntriesChoice", s"$noOfEntriesChoice")
-      .formParam("enterentries", s"$enterNoEntries")
+      .formParam("value", s"$noOfEntriesChoice")
+      .formParam("entries", s"$enterNoEntries")
       .check(status.is(303))
   }
 
@@ -153,7 +153,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/acceptance-date-all-entries")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("entryAccpDateChoice", s"$entryAccDate")
+      .formParam("value", s"$entryAccDate")
       .check(status.is(303))
   }
 
@@ -170,7 +170,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/why-are-you-applying-uk")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("repaymentReasonChoice", s"$repaymentReasonChoice")
+      .formParam("value", s"$repaymentReasonChoice")
       .check(status.is(303))
   }
 
@@ -187,11 +187,11 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/oldest-entry-date")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("epu", "${randomEPU}")
-      .formParam("entryNumber", "${entryNo}")
-      .formParam("entryDay", "${entryDay}")
-      .formParam("entryDate.month", "${entryMonth}")
-      .formParam("entryDate.year", "${entryYear}")
+      .formParam("EPU", "${epu}")
+      .formParam("EntryNumber", "${entryNumber}")
+      .formParam("EntryDate.day", "${entryDay}")
+      .formParam("EntryDate.month", "${entryMonth}")
+      .formParam("EntryDate.year", "${entryYear}")
       .check(status.is(303))
   }
 
@@ -208,7 +208,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/application-reason")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("appRelateChoice", s"$apprelateChoice")
+      .formParam("value", s"$apprelateChoice")
       .check(status.is(303))
   }
 
@@ -225,7 +225,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/reason-for-overpayment")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("reasons", "shoes, jackets")
+      .formParam("value", "shoes, jackets")
       .check(status.is(303))
   }
 
@@ -242,7 +242,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/reclaim")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("reclaim", s"$reclaimChoice")
+      .formParam("value[]", s"$reclaimChoice")
       .check(status.is(303))
   }
 
@@ -259,8 +259,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/customs-duty-overpayment")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("custDutyPaid", "100000")
-      .formParam("custDutyShldPaid", "1500")
+      .formParam("ActualPaidAmount", "100000")
+      .formParam("ShouldHavePaidAmount", "1500")
       .check(status.is(303))
   }
 
@@ -268,7 +268,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Repayment amount summary Page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/repayment-summary")
       .headers(headers)
-      .check(saveCsrfToken)
+    //  .check(saveCsrfToken)
       .check(status.is(200))
   }
 
@@ -276,15 +276,16 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Supporting documents Page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/evidenceSupportingDocs")
       .headers(headers)
-      .check(saveCsrfToken)
+    //  .check(saveCsrfToken)
       .check(status.is(200))
   }
+//file upload
 //Importer Details
   def navigateToImpEORIPage: HttpRequestBuilder = {
     http("Does the importer have an EORI number? Page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/does-importer-have-eori-number")
       .headers(headers)
-      .check(saveCsrfToken)
+    //  .check(saveCsrfToken)
       .check(status.is(200))
   }
 
@@ -293,7 +294,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/does-importer-have-eori-number")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("impEORINo", s"$impEoriChoice")
+      .formParam("value", s"$impEoriChoice")
       .check(status.is(303))
   }
 
@@ -310,7 +311,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-importer-eori-number")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("impEORINo", "GB123456789123000")
+      .formParam("value", "GB123456789123000")
       .check(status.is(303))
   }
 
@@ -327,12 +328,12 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/is-importer-vat-registered")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("impVATNo", s"$impVATChoice")
+      .formParam("value", s"$impVATChoice")
       .check(status.is(303))
   }
 
   def navigateToImpNamePage: HttpRequestBuilder = {
-    http("What is the importer's name? Page")
+    http("What is the importer name? Page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/representative-importer-name")
       .headers(headers)
       .check(saveCsrfToken)
@@ -344,8 +345,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/representative-importer-name")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("impFName", "Test")
-      .formParam("impLName", "Importer")
+      .formParam("importerName", "Test importer")
       .check(status.is(303))
   }
 
@@ -362,16 +362,18 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/select-importer-address")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("impPostcode", "m44tj")
-      .check(status.is(303))
+      .formParam("PostalCode", "M44TJ")
+      .check(status.is(200))
   }
 
-  def navigateToImpSelAddressPage: HttpRequestBuilder = {
+  def ImpSelAddressPage: HttpRequestBuilder = {
     http("Select the importer's address Page")
-      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/select-importer-address")
+      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-importer-address")
       .headers(headers)
-      .check(saveCsrfToken)
-      .check(status.is(200))
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("field-name", "{\"AddressLine1\":\"Apartment 401\",\"AddressLine2\":\"5 Ludgate Hill\",\"City\":\"Manchester\",\"CountryCode\":\"GB\",\"PostalCode\":\"M4 4TJ\"}")
+      .formParam("address-postcode", "M44TJ")
+      .check(status.is(303))
   }
 // Representative details
   def navigateToRepEORIPage: HttpRequestBuilder = {
@@ -387,7 +389,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/do-you-have-an-eori-number")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("repEORINo", s"$repEoriChoice")
+      .formParam("value", s"$repEoriChoice")
       .check(status.is(303))
   }
 
@@ -404,7 +406,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-your-eori-number")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("repEORINo", "GB123456789123")
+      .formParam("value", "GB123456789123")
       .check(status.is(303))
   }
 
@@ -421,8 +423,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/representative-agent-name")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("repFName", "Test")
-      .formParam("repLName", "Representative")
+      .formParam("declarantName", "Test Declarant name")
+      .formParam("agentName", "Test Representative name")
       .check(status.is(303))
   }
 
@@ -439,16 +441,18 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/your-business-address")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("repPostcode", "BD13ly")
-      .check(status.is(303))
+      .formParam("PostalCode", "BD13ly")
+      .check(status.is(200))
   }
 
-  def navigateToRepSelAddressPage: HttpRequestBuilder = {
+  def RepSelAddressPage: HttpRequestBuilder = {
     http("Select your business address Page")
-      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/select-importer-address")
+      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-agent-importer-address")
       .headers(headers)
-      .check(saveCsrfToken)
-      .check(status.is(200))
+      .formParam("csrfToken", "${csrfToken}")
+      .formParam("field-name", "{\"AddressLine1\":\"36 Piccadilly\",\"City\":\"Bradford\",\"CountryCode\":\"GB\",\"PostalCode\":\"BD1 3LY\"}")
+      .formParam("address-postcode", "BD13ly")
+      .check(status.is(303))
   }
 //Contact details
   def navigateToContactDetailsPage: HttpRequestBuilder = {
@@ -464,10 +468,10 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/contact")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("email", s"${email}")
-      .formParam("emailvalue", "test@gmail.com")
-      .formParam("phone", s"${phone}")
-      .formParam("phonevalue", "09876543211")
+      .formParam("value[]", s"${email}")
+      .formParam("email", "test@gmail.com")
+      .formParam("value[]", s"${phone}")
+      .formParam("phone", "09876543211")
       .check(status.is(303))
   }
 
@@ -484,8 +488,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/declarant-reference-number")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("decRefChoiceYes","Yes" )
-      .formParam("decRefvalue", "test123456")
+      .formParam("value","01")
+      .formParam("declarantReferenceNumber", "test123456")
       .check(status.is(303))
   }
 
@@ -502,8 +506,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/repaid")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("RepaidChoiceRep","Representative" )
-      .formParam("decRefvalue", "test123456")
+      .formParam("value","02" )
       .check(status.is(303))
   }
 
@@ -520,7 +523,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/indirect-representative")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("indirectRepChoiceNo","No" )
+      .formParam("value","false" )
       .check(status.is(303))
   }
 
@@ -537,9 +540,9 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-bank-details")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("accName","Test account")
-      .formParam("sortcode","235671")
-      .formParam("accNo","9872092")
+      .formParam("AccountName","Test account")
+      .formParam("SortCode","235671")
+      .formParam("AccountNumber","9872092")
       .check(status.is(303))
   }
 //CYA
@@ -561,7 +564,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
 
   def navigateToConfirmationPage: HttpRequestBuilder = {
     http("Information Sent Page")
-      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/check-your-answers")
+      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/confirmation")
       .headers(headers)
       .check(status.is(200))
   }

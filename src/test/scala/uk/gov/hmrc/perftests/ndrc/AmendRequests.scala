@@ -38,7 +38,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/referenceNumber")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("caseRefNo", "NDRC21051015162W238SKS3")
+      .formParam("value", "NDRC21051015162W238SKS3")
       .check(status.is(303))
   }
 
@@ -55,8 +55,8 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amendCaseResponseType")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("typeofamendment", "UploadDocuments")
-      .formParam("typeofamendmentfurtherinfo", "FurtherInfo")
+    //  .formParam("value[]", "supportingDocuments")
+      .formParam("value[]", "furtherInformation")
       .check(status.is(303))
   }
 
@@ -73,7 +73,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/furtherInformation")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("furtherInfo", "shoes, more jackets")
+      .formParam("value", "shoes, more jackets")
       .check(status.is(303))
   }
 //CYA
@@ -97,7 +97,6 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
     http("Information sent page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amendConfirmation")
       .headers(headers)
-      .check(saveCsrfToken)
       .check(status.is(200))
   }
 }
