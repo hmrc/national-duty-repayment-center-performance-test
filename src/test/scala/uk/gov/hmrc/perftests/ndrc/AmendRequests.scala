@@ -27,15 +27,15 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 
   def navigateToCaseRefPage: HttpRequestBuilder = {
     http("What is the reference number? page")
-      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/referenceNumber")
+      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/application-reference-number")
       .headers(headers)
-      .check(saveCsrfToken)
       .check(status.is(200))
+      .check(saveCsrfToken)
   }
 
   def enterCaseRefPage: HttpRequestBuilder = {
     http("Enter case reference number")
-      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/referenceNumber")
+      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/application-reference-number")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "NDRC2105241644B5A8E7CL6")
@@ -44,15 +44,15 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 
   def navigateToAmendResponseType: HttpRequestBuilder = {
     http("What do you need to do? page")
-      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amendCaseResponseType")
+      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/what-do-you-need-to-do")
       .headers(headers)
-      .check(saveCsrfToken)
       .check(status.is(200))
+      .check(saveCsrfToken)
   }
 
   def chooseAmendResponseType(): HttpRequestBuilder = {
     http("Choose amend response type")
-      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amendCaseResponseType")
+      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/what-do-you-need-to-do")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
     //  .formParam("value[]", "supportingDocuments")
@@ -62,15 +62,15 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 
   def navigateToFurtherInfoPage: HttpRequestBuilder = {
     http("Give us further information page")
-      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/furtherInformation")
+      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/further-information")
       .headers(headers)
-      .check(saveCsrfToken)
       .check(status.is(200))
+      .check(saveCsrfToken)
   }
 
   def enterFurtherInfo: HttpRequestBuilder = {
     http("Enter further info")
-      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/furtherInformation")
+      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/further-information")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
       .formParam("value", "shoes, more jackets")
@@ -79,15 +79,15 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 //CYA
   def navigateToAmendCYA: HttpRequestBuilder = {
     http("Check your answers before sending your information page")
-      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend-check-your-answers")
+      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/check-answers")
       .headers(headers)
-      .check(saveCsrfToken)
       .check(status.is(200))
+      .check(saveCsrfToken)
   }
 
   def postAmendCYA: HttpRequestBuilder = {
     http("Enter further info")
-      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend-check-your-answers")
+      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/check-answers")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
       .check(status.is(303))
@@ -95,7 +95,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
 //Confirmation
   def navigateToAmendConfirmationPage: HttpRequestBuilder = {
     http("Information sent page")
-      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amendConfirmation")
+      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/information-sent")
       .headers(headers)
       .check(status.is(200))
   }

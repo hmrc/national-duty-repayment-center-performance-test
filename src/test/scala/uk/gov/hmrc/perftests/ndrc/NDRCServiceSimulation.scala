@@ -65,9 +65,9 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     chooseVATChoice("01"),
     navigateToImpNamePage,
     enterImpName,
-    navigateToImpAddressPage,
-    enterImpPostcode,
-    ImpSelAddressPage,
+//    navigateToImpAddressPage,
+//    enterImpPostcode,
+//    ImpSelAddressPage,
 //Representative Details
     navigateToRepEORIPage,
     chooseRepEoriNoChoice("true"),
@@ -75,9 +75,9 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     enterRepEORINo,
     navigateToRepNamePage,
     enterRepName,
-    navigateToRepAddressPage,
-    enterRepPostcode,
-    RepSelAddressPage,
+//    navigateToRepAddressPage,
+//    enterRepPostcode,
+//    RepSelAddressPage,
     navigateToContactDetailsPage,
     enterContactDetails("01","02"),
 
@@ -91,9 +91,9 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
 
     navigateToBankDetailsPage,
     enterBankDetails,
-    navigateToCYAPage,
-   // postCYA,
-  //  navigateToConfirmationPage
+//    navigateToCYAPage,
+//   // postCYA,
+//  //  navigateToConfirmationPage
 
   )
 
