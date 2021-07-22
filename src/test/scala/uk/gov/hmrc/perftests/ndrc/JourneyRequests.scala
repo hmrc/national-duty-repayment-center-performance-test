@@ -502,9 +502,9 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-bank-details")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("AccountName","ACME Importers Ltd")
-      .formParam("SortCode","400530")
-      .formParam("AccountNumber","71584685")
+      .formParam("AccountName","Megacorp")
+      .formParam("SortCode","207106")
+      .formParam("AccountNumber","86563611")
       .check(status.is(303))
   }
 //CYA
