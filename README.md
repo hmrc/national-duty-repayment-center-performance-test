@@ -1,7 +1,7 @@
 **This is a template README.md.  Be sure to update this with project specific content that describes your performance test project.**
 
 # national-duty-repayment-center-performance-test
-Performance test suite for the `<digital service name>`, using [performance-test-runner](https://github.com/hmrc/performance-test-runner) under the hood.
+Performance test suite for the `national-duty-repayment-center-frontend`, using [performance-test-runner](https://github.com/hmrc/performance-test-runner) under the hood.
 
 
 ## Running the tests
@@ -15,7 +15,7 @@ Run the following command to start the services locally:
 ```
 docker run --rm -d --name mongo -d -p 27017:27017 mongo:3.6
 
-sm --start PLATOPS_EXAMPLE_UI_TESTS -r
+sm --start NDRC_ALL -r
 ```
 
 ## Logging

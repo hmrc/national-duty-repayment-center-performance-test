@@ -172,7 +172,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/application-reason")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("value", s"$apprelateChoice")
+      .formParam("value[]", s"$apprelateChoice")
       .check(status.is(303))
   }
 
