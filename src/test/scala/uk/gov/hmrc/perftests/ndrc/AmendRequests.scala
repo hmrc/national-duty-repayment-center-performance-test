@@ -20,7 +20,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.ndrc.JourneyRequests.{headers, saveCsrfToken}
+import uk.gov.hmrc.perftests.ndrc.JourneyRequests.headers
 import uk.gov.hmrc.perftests.ndrc.utils.{Configuration, RequestUtils}
 
 object AmendRequests extends ServicesConfiguration with RequestUtils {
@@ -55,7 +55,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/what-do-you-need-to-do")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-    //  .formParam("value[]", "supportingDocuments")
+      //  .formParam("value[]", "supportingDocuments")
       .formParam("value[]", "furtherInformation")
       .check(status.is(303))
   }
@@ -76,7 +76,8 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
       .formParam("value", "shoes, more jackets")
       .check(status.is(303))
   }
-//CYA
+
+  //CYA
   def navigateToAmendCYA: HttpRequestBuilder = {
     http("Check your answers before sending your information page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/check-answers")
@@ -92,7 +93,8 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
       .formParam("csrfToken", "${csrfToken}")
       .check(status.is(303))
   }
-//Confirmation
+
+  //Confirmation
   def navigateToAmendConfirmationPage: HttpRequestBuilder = {
     http("Information sent page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/information-sent")

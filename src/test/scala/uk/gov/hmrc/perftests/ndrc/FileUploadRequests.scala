@@ -20,13 +20,12 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
-import uk.gov.hmrc.perftests.ndrc.JourneyRequests.saveCsrfToken
 import uk.gov.hmrc.perftests.ndrc.utils.{Configuration, RequestUtils}
 
 
-object FileUploadRequests extends ServicesConfiguration with RequestUtils{
+object FileUploadRequests extends ServicesConfiguration with RequestUtils {
 
-//multiple & proof of authority file upload page
+  //multiple & proof of authority file upload page
 
   def getFileInfo(journey: String): HttpRequestBuilder =
     if (runLocal) {
@@ -47,11 +46,11 @@ object FileUploadRequests extends ServicesConfiguration with RequestUtils{
       .check(status.is(200))
   }
 
-    def uploadMultiFilePage: HttpRequestBuilder = {
+  def uploadMultiFilePage: HttpRequestBuilder = {
     postFileInfo("testPdf.pdf", "application/pdf")
   }
 
-//file-upload
+  //file-upload
 
   def postPDFFileUpload: HttpRequestBuilder = {
     postFileInfo("testPdf.pdf", "application/pdf")

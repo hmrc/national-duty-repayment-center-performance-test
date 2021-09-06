@@ -17,9 +17,8 @@
 package uk.gov.hmrc.perftests.ndrc
 
 import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
-import uk.gov.hmrc.perftests.ndrc.JourneyRequests._
 import uk.gov.hmrc.perftests.ndrc.AmendRequests._
-import uk.gov.hmrc.perftests.ndrc.FileUploadRequests._
+import uk.gov.hmrc.perftests.ndrc.JourneyRequests._
 
 class NDRCServiceSimulation extends PerformanceTestRunner {
 
@@ -34,15 +33,13 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     chooseImporRep("02"),
     navigateToNoEntriesPage,
     chooseNoEntries("02", "4"),
-    navigateToEntryAccpDatePage,
-    chooseEntryAccDate("02"),
+    navigateToEnterDetailsPage,
+    enterEntryDetails,
     navigateToRepaymentReasonPage,
     chooseRepaymentReason("050"),
 
-//multiple spreadsheet file upload
+    //multiple spreadsheet file upload
 
-    navigateToEnterDetailsPage,
-    enterEntryDetails,
     navigateToAppRelatePage,
     chooseAppRelatetoChoice("05"),
     navigateToOverpaymentReasonPage,
@@ -54,9 +51,9 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     navigateToRepaymentAmtSummaryPage,
     navigateToSupportingDocPage,
 
-//file upload
+    //file upload
 
-//Importer Details
+    //Importer Details
     navigateToImpEORIPage,
     chooseEoriNoChoice("01"),
     navigateToEnterImpEORIPage,
@@ -65,21 +62,21 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     chooseVATChoice("01"),
     navigateToImpNamePage,
     enterImpName,
-//    navigateToImpAddressPage,
-//    enterImpPostcode,
-//    ImpSelAddressPage,
-//Representative Details
+    //    navigateToImpAddressPage,
+    //    enterImpPostcode,
+    //    ImpSelAddressPage,
+    //Representative Details
     navigateToRepEORIPage,
     chooseRepEoriNoChoice("true"),
     navigateToEnterRepEORIPage,
     enterRepEORINo,
     navigateToRepNamePage,
     enterRepName,
-//    navigateToRepAddressPage,
-//    enterRepPostcode,
-//    RepSelAddressPage,
+    //    navigateToRepAddressPage,
+    //    enterRepPostcode,
+    //    RepSelAddressPage,
     navigateToContactDetailsPage,
-    enterContactDetails("01","02"),
+    enterContactDetails("01", "02"),
 
     navigateToDecRefNoPage,
     enterDecRefNo,
@@ -87,13 +84,13 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     chooseWhoToRepay,
     navigateToIndirectRepPage,
     chooseIndirectRepOption,
-//proof of authority file upload
+    //proof of authority file upload
 
     navigateToBankDetailsPage,
     enterBankDetails,
-//    navigateToCYAPage,
-//   // postCYA,
-//  //  navigateToConfirmationPage
+    //    navigateToCYAPage,
+    //   // postCYA,
+    //  //  navigateToConfirmationPage
 
   )
 

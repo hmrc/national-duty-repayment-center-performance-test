@@ -104,23 +104,6 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(303))
   }
 
-  def navigateToEntryAccpDatePage: HttpRequestBuilder = {
-    http("What was the entry acceptance date? Page")
-      .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/acceptance-date-all-entries")
-      .headers(headers)
-      .check(status.is(200))
-      .check(saveCsrfToken)
-  }
-
-  def chooseEntryAccDate(entryAccDate: String): HttpRequestBuilder = {
-    http("Choose entry acceptance date")
-      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/acceptance-date-all-entries")
-      .headers(headers)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("value", s"$entryAccDate")
-      .check(status.is(303))
-  }
-
   def navigateToRepaymentReasonPage: HttpRequestBuilder = {
     http("Why are you applying for this repayment? Page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/why-are-you-applying-uk")
