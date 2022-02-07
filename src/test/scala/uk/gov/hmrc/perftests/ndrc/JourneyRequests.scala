@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,17 @@ import scala.concurrent.duration._
 object JourneyRequests extends HttpConfiguration with ServicesConfiguration with RequestUtils {
 //Representative multi-entry journey
 
-  val navigateToAuthLoginStubPage =
+  val headers: Map[String, String] = Map(
+    """Accept""" -> """text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8""",
+    """Cache-Control""" -> """no-cache"""
+  )
+
+  val navigateToAuthLoginStubPage: HttpRequestBuilder =
     http("Navigate to auth login stub page")
       .get(s"${Configuration.authUrl}" + s"${Configuration.authLoginStubEndpoint}")
       .check(status.is(200))
 
-  val submitLogin =
+  val submitLogin: HttpRequestBuilder =
     http("Sign in as a user who is applying for NDRC")
       .post(s"${Configuration.authUrl}" + s"${Configuration.authLoginStubEndpoint}")
       .formParam("redirectionUrl", s"${Configuration.authRedirectURL}")
@@ -413,9 +418,9 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/contact")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("value[]", s"${email}")
+      .formParam("value[]", s"$email")
       .formParam("email", "test@gmail.com")
-      .formParam("value[]", s"${phone}")
+      .formParam("value[]", s"$phone")
       .formParam("phone", "09876543211")
       .check(status.is(303))
   }
