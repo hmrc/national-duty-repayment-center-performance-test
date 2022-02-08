@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     navigateToWhatDoYouWantToDoPage,
     chooseJourney("01"),
 
-    navigateToImporterorRepPage,
-    chooseImporRep("02"),
+    navigateToImporterOrRepPage,
+    chooseImportRep("02"),
     navigateToNoEntriesPage,
     chooseNoEntries("02", "4"),
     navigateToEnterDetailsPage,
@@ -41,7 +41,7 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     //multiple spreadsheet file upload
 
     navigateToAppRelatePage,
-    chooseAppRelatetoChoice("05"),
+    chooseAppRelateToChoice("05"),
     navigateToOverpaymentReasonPage,
     enterOverpaymentReason,
     navigateToReclaimPage,

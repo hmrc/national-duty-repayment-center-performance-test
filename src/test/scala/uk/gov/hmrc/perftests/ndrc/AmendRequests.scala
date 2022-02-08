@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
       .check(saveCsrfToken)
   }
 
-  def chooseAmendResponseType(): HttpRequestBuilder = {
+  def chooseAmendResponseType: HttpRequestBuilder = {
     http("Choose amend response type")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/what-do-you-need-to-do")
       .headers(headers)

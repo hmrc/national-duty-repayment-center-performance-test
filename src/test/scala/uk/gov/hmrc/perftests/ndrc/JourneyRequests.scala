@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,22 +17,25 @@
 package uk.gov.hmrc.perftests.ndrc
 
 import io.gatling.core.Predef._
-import io.gatling.core.action.builder.PauseBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.{HttpConfiguration, ServicesConfiguration}
 import uk.gov.hmrc.perftests.ndrc.utils.{Configuration, RequestUtils}
-import scala.concurrent.duration._
 
 object JourneyRequests extends HttpConfiguration with ServicesConfiguration with RequestUtils {
 //Representative multi-entry journey
 
-  val navigateToAuthLoginStubPage =
+  val headers: Map[String, String] = Map(
+    """Accept""" -> """text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8""",
+    """Cache-Control""" -> """no-cache"""
+  )
+
+  val navigateToAuthLoginStubPage: HttpRequestBuilder =
     http("Navigate to auth login stub page")
       .get(s"${Configuration.authUrl}" + s"${Configuration.authLoginStubEndpoint}")
       .check(status.is(200))
 
-  val submitLogin =
+  val submitLogin: HttpRequestBuilder =
     http("Sign in as a user who is applying for NDRC")
       .post(s"${Configuration.authUrl}" + s"${Configuration.authLoginStubEndpoint}")
       .formParam("redirectionUrl", s"${Configuration.authRedirectURL}")
@@ -47,10 +50,6 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(303), status.not(404), status.not(500))
       .check(headerRegex("Location", s"${Configuration.authRedirectURL}"))
       .check(headerRegex("Set-Cookie", """mdtp=([^"]+)""").saveAs("mdtpCookie"))
-
-  def pause = new PauseBuilder(8 seconds, None)
-
-  def uploadWait = new PauseBuilder(12 seconds, None)
 
   def navigateToWhatDoYouWantToDoPage: HttpRequestBuilder = {
     http("What do you want to do? Page")
@@ -69,7 +68,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(303))
   }
 
-  def navigateToImporterorRepPage: HttpRequestBuilder = {
+  def navigateToImporterOrRepPage: HttpRequestBuilder = {
     http("Are you the importer or their representative? Page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/importer-or-representative")
       .headers(headers)
@@ -77,7 +76,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(saveCsrfToken)
   }
 
-  def chooseImporRep(imporrepChoice: String): HttpRequestBuilder ={
+  def chooseImportRep(imporrepChoice: String): HttpRequestBuilder ={
     http("Choose importer or representative")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/importer-or-representative")
       .headers(headers)
@@ -150,7 +149,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(saveCsrfToken)
   }
 
-  def chooseAppRelatetoChoice(apprelateChoice: String): HttpRequestBuilder = {
+  def chooseAppRelateToChoice(apprelateChoice: String): HttpRequestBuilder = {
     http("Choose Application relate to option")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/application-reason")
       .headers(headers)
@@ -311,15 +310,6 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(200))
   }
 
-  def ImpSelAddressPage: HttpRequestBuilder = {
-    http("Select the importer's address Page")
-      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-importer-address")
-      .headers(headers)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("field-name", "{\"AddressLine1\":\"Apartment 401\",\"AddressLine2\":\"5 Ludgate Hill\",\"City\":\"Manchester\",\"CountryCode\":\"GB\",\"PostalCode\":\"M4 4TJ\"}")
-      .formParam("address-postcode", "M44TJ")
-      .check(status.is(303))
-  }
 // Representative details
   def navigateToRepEORIPage: HttpRequestBuilder = {
     http("Do you have an EORI number? Page")
@@ -390,15 +380,6 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(200))
   }
 
-  def RepSelAddressPage: HttpRequestBuilder = {
-    http("Select your business address Page")
-      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-agent-importer-address")
-      .headers(headers)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("field-name", "{\"AddressLine1\":\"36 Piccadilly\",\"City\":\"Bradford\",\"CountryCode\":\"GB\",\"PostalCode\":\"BD1 3LY\"}")
-      .formParam("address-postcode", "BD13ly")
-      .check(status.is(303))
-  }
 //Contact details
   def navigateToContactDetailsPage: HttpRequestBuilder = {
     http("How can we contact you? Page")
@@ -413,9 +394,9 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/contact")
       .headers(headers)
       .formParam("csrfToken", "${csrfToken}")
-      .formParam("value[]", s"${email}")
+      .formParam("value[]", s"$email")
       .formParam("email", "test@gmail.com")
-      .formParam("value[]", s"${phone}")
+      .formParam("value[]", s"$phone")
       .formParam("phone", "09876543211")
       .check(status.is(303))
   }
