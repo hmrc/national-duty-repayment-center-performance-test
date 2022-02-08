@@ -17,12 +17,10 @@
 package uk.gov.hmrc.perftests.ndrc
 
 import io.gatling.core.Predef._
-import io.gatling.core.action.builder.PauseBuilder
 import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.{HttpConfiguration, ServicesConfiguration}
 import uk.gov.hmrc.perftests.ndrc.utils.{Configuration, RequestUtils}
-import scala.concurrent.duration._
 
 object JourneyRequests extends HttpConfiguration with ServicesConfiguration with RequestUtils {
 //Representative multi-entry journey
@@ -53,10 +51,6 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(headerRegex("Location", s"${Configuration.authRedirectURL}"))
       .check(headerRegex("Set-Cookie", """mdtp=([^"]+)""").saveAs("mdtpCookie"))
 
-  def pause = new PauseBuilder(8 seconds, None)
-
-  def uploadWait = new PauseBuilder(12 seconds, None)
-
   def navigateToWhatDoYouWantToDoPage: HttpRequestBuilder = {
     http("What do you want to do? Page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/what-do-you-want-to-do")
@@ -74,7 +68,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(303))
   }
 
-  def navigateToImporterorRepPage: HttpRequestBuilder = {
+  def navigateToImporterOrRepPage: HttpRequestBuilder = {
     http("Are you the importer or their representative? Page")
       .get(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/importer-or-representative")
       .headers(headers)
@@ -82,7 +76,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(saveCsrfToken)
   }
 
-  def chooseImporRep(imporrepChoice: String): HttpRequestBuilder ={
+  def chooseImportRep(imporrepChoice: String): HttpRequestBuilder ={
     http("Choose importer or representative")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/importer-or-representative")
       .headers(headers)
@@ -155,7 +149,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(saveCsrfToken)
   }
 
-  def chooseAppRelatetoChoice(apprelateChoice: String): HttpRequestBuilder = {
+  def chooseAppRelateToChoice(apprelateChoice: String): HttpRequestBuilder = {
     http("Choose Application relate to option")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/application-reason")
       .headers(headers)
@@ -316,15 +310,6 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(200))
   }
 
-  def ImpSelAddressPage: HttpRequestBuilder = {
-    http("Select the importer's address Page")
-      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-importer-address")
-      .headers(headers)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("field-name", "{\"AddressLine1\":\"Apartment 401\",\"AddressLine2\":\"5 Ludgate Hill\",\"City\":\"Manchester\",\"CountryCode\":\"GB\",\"PostalCode\":\"M4 4TJ\"}")
-      .formParam("address-postcode", "M44TJ")
-      .check(status.is(303))
-  }
 // Representative details
   def navigateToRepEORIPage: HttpRequestBuilder = {
     http("Do you have an EORI number? Page")
@@ -395,15 +380,6 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
       .check(status.is(200))
   }
 
-  def RepSelAddressPage: HttpRequestBuilder = {
-    http("Select your business address Page")
-      .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-agent-importer-address")
-      .headers(headers)
-      .formParam("csrfToken", "${csrfToken}")
-      .formParam("field-name", "{\"AddressLine1\":\"36 Piccadilly\",\"City\":\"Bradford\",\"CountryCode\":\"GB\",\"PostalCode\":\"BD1 3LY\"}")
-      .formParam("address-postcode", "BD13ly")
-      .check(status.is(303))
-  }
 //Contact details
   def navigateToContactDetailsPage: HttpRequestBuilder = {
     http("How can we contact you? Page")

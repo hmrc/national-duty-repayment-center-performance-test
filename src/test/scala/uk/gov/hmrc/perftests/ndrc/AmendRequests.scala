@@ -50,7 +50,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
       .check(saveCsrfToken)
   }
 
-  def chooseAmendResponseType(): HttpRequestBuilder = {
+  def chooseAmendResponseType: HttpRequestBuilder = {
     http("Choose amend response type")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/what-do-you-need-to-do")
       .headers(headers)

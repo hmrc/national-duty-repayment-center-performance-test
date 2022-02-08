@@ -29,8 +29,8 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     navigateToWhatDoYouWantToDoPage,
     chooseJourney("01"),
 
-    navigateToImporterorRepPage,
-    chooseImporRep("02"),
+    navigateToImporterOrRepPage,
+    chooseImportRep("02"),
     navigateToNoEntriesPage,
     chooseNoEntries("02", "4"),
     navigateToEnterDetailsPage,
@@ -41,7 +41,7 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     //multiple spreadsheet file upload
 
     navigateToAppRelatePage,
-    chooseAppRelatetoChoice("05"),
+    chooseAppRelateToChoice("05"),
     navigateToOverpaymentReasonPage,
     enterOverpaymentReason,
     navigateToReclaimPage,
