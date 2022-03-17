@@ -16,11 +16,10 @@
 
 package uk.gov.hmrc.perftests.ndrc
 
-import uk.gov.hmrc.performance.simulation.PerformanceTestRunner
 import uk.gov.hmrc.perftests.ndrc.AmendRequests._
 import uk.gov.hmrc.perftests.ndrc.JourneyRequests._
 
-class NDRCServiceSimulation extends PerformanceTestRunner {
+class NDRCServiceSimulation extends CustomPerfRunner {
 
   setup("National Duty Repayment Centre", "New Journey").withActions(
     navigateToAuthLoginStubPage,
@@ -116,5 +115,5 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
 
   )
 
-  runSimulation()
+  runSimulationWithUsersN(12)
 }
