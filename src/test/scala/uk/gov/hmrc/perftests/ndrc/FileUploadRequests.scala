@@ -22,10 +22,9 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.ndrc.utils.RequestUtils
 
-
 object FileUploadRequests extends ServicesConfiguration with RequestUtils {
 
-  //multiple & proof of authority file upload page
+  // multiple & proof of authority file upload page
 
   def postFileInfo(fileName: String, fileType: String): HttpRequestBuilder = if (runLocal) {
     postFileInfoLocal(s"$fileName", s"$fileType")
@@ -33,9 +32,8 @@ object FileUploadRequests extends ServicesConfiguration with RequestUtils {
     postFileInfoFull(s"$fileName", s"$fileType")
   }
 
-  //file-upload=
-  def postFileInfoLocal(fileName: String, fileType: String): HttpRequestBuilder = {
-
+  // file-upload=
+  def postFileInfoLocal(fileName: String, fileType: String): HttpRequestBuilder =
     http("Upload file")
       .post("${fileUploadAmazonUrl}")
       .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
@@ -56,9 +54,8 @@ object FileUploadRequests extends ServicesConfiguration with RequestUtils {
       .bodyPart(RawFileBodyPart("file", "data/" + s"$fileName").contentType(s"$fileType"))
       .check(status.is(303))
       .check(header("Location").saveAs("UpscanResponseSuccess"))
-  }
 
-  def postFileInfoFull(fileName: String, fileType: String): HttpRequestBuilder = {
+  def postFileInfoFull(fileName: String, fileType: String): HttpRequestBuilder =
     http("Upload file")
       .post("${fileUploadAmazonUrl}")
       .header("content-type", "multipart/form-data; boundary=----WebKitFormBoundarycQF5VGEC89D5MB5B")
@@ -83,5 +80,4 @@ object FileUploadRequests extends ServicesConfiguration with RequestUtils {
       .bodyPart(RawFileBodyPart("file", "data/" + s"$fileName").contentType(s"$fileType"))
       .check(status.is(303))
       .check(header("Location").saveAs("UpscanResponseSuccess"))
-  }
 }

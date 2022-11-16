@@ -25,10 +25,8 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
   setup("National Duty Repayment Centre", "New Journey").withActions(
     navigateToAuthLoginStubPage,
     submitLogin,
-
     navigateToWhatDoYouWantToDoPage,
     chooseJourney("01"),
-
     navigateToImporterOrRepPage,
     chooseImportRep("02"),
     navigateToNoEntriesPage,
@@ -38,7 +36,7 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     navigateToRepaymentReasonPage,
     chooseRepaymentReason("050"),
 
-    //multiple spreadsheet file upload
+    // multiple spreadsheet file upload
 
     navigateToAppRelatePage,
     chooseAppRelateToChoice("05"),
@@ -51,9 +49,9 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     navigateToRepaymentAmtSummaryPage,
     navigateToSupportingDocPage,
 
-    //file upload
+    // file upload
 
-    //Importer Details
+    // Importer Details
     navigateToImpEORIPage,
     chooseEoriNoChoice("01"),
     navigateToEnterImpEORIPage,
@@ -65,7 +63,7 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     //    navigateToImpAddressPage,
     //    enterImpPostcode,
     //    ImpSelAddressPage,
-    //Representative Details
+    // Representative Details
     navigateToRepEORIPage,
     chooseRepEoriNoChoice("true"),
     navigateToEnterRepEORIPage,
@@ -77,17 +75,16 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
     //    RepSelAddressPage,
     navigateToContactDetailsPage,
     enterContactDetails("01", "02"),
-
     navigateToDecRefNoPage,
     enterDecRefNo,
     navigateToWhoToRepayPage,
     chooseWhoToRepay,
     navigateToIndirectRepPage,
     chooseIndirectRepOption,
-    //proof of authority file upload
+    // proof of authority file upload
 
     navigateToBankDetailsPage,
-    enterBankDetails,
+    enterBankDetails
     //    navigateToCYAPage,
     //   // postCYA,
     //  //  navigateToConfirmationPage
@@ -97,23 +94,17 @@ class NDRCServiceSimulation extends PerformanceTestRunner {
   setup("National Duty Repayment Centre Amend Journey", "Amend Journey").withActions(
     navigateToAuthLoginStubPage,
     submitLogin,
-
     navigateToWhatDoYouWantToDoPage,
     chooseJourney("02"),
-
     navigateToCaseRefPage,
     enterCaseRefPage,
-
     navigateToAmendResponseType,
     chooseAmendResponseType,
-
     navigateToFurtherInfoPage,
     enterFurtherInfo,
-
     navigateToAmendCYA,
     postAmendCYA,
     navigateToAmendConfirmationPage
-
   )
 
   runSimulation()
