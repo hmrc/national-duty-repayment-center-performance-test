@@ -39,7 +39,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Sign in as a user who is applying for NDRC")
       .post(s"${Configuration.authUrl}" + s"${Configuration.authLoginStubEndpoint}")
       .formParam("redirectionUrl", s"${Configuration.authRedirectURL}")
-      .formParam("credentialStrength", "weak")
+      .formParam("credentialStrength", "strong")
       .formParam("authorityId", "")
       .formParam("confidenceLevel", "50")
       .formParam("affinityGroup", "Organisation")
