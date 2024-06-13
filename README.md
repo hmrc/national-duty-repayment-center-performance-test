@@ -13,7 +13,7 @@ Run the following command to start the services locally:
 ```
 docker run --rm -d --name mongo -d -p 27017:27017 mongo:3.6
 
-sm --start NDRC_ALL -r
+sm2 --start NDRC_ALL
 ```
 
 ## Logging
