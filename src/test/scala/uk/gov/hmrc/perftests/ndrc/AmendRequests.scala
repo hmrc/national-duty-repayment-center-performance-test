@@ -40,7 +40,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/application-reference-number"
       )
       .headers(headers)
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "NDRC2105241644B5A8E7CL6")
       .check(status.is(303))
 
@@ -59,7 +59,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/what-do-you-need-to-do"
       )
       .headers(headers)
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       //  .formParam("value[]", "supportingDocuments")
       .formParam("value[]", "furtherInformation")
       .check(status.is(303))
@@ -75,7 +75,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
     http("Enter further info")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/further-information")
       .headers(headers)
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .formParam("value", "shoes, more jackets")
       .check(status.is(303))
 
@@ -91,7 +91,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
     http("Enter further info")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/check-answers")
       .headers(headers)
-      .formParam("csrfToken", "${csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}")
       .check(status.is(303))
 
   // Confirmation

@@ -23,5 +23,5 @@ import io.gatling.core.check.regex.RegexCheckType
 trait RequestUtils {
 
   val CsrfPattern                                                 = """<input type="hidden" name="csrfToken" value="([^"]+)""""
-  def saveCsrfToken: CheckBuilder[RegexCheckType, String, String] = regex(_ => CsrfPattern).saveAs("csrfToken")
+  def saveCsrfToken: CheckBuilder[RegexCheckType, String] = regex(_ => CsrfPattern).saveAs("csrfToken")
 }
