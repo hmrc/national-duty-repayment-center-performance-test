@@ -24,18 +24,18 @@ The template uses [logback.xml](src/test/resources) to configure log levels. The
 
 It might be useful to try the journey with one user to check that everything works fine before running the full performance test
 ```
-sbt -Dperftest.runSmokeTest=true -DrunLocal=true gatling:test
+sbt -Dperftest.runSmokeTest=true -DrunLocal=true Gatling/test
 ```
 
 #### Running the performance test
 ```
-sbt -DrunLocal=true gatling:test
+sbt -DrunLocal=true Gatling/test
 ```
 ### Run the example test against staging environment
 
 #### Smoke test
 ```
-sbt -Dperftest.runSmokeTest=true -DrunLocal=false gatling:test
+sbt -Dperftest.runSmokeTest=true -DrunLocal=false Gatling/test
 ```
 
 #### Run the performance test
