@@ -17,6 +17,8 @@ logs
 /.idea_modules
 eclipse
 .scala_dependencies
+/.vscode
+/.metals
 
 # sbt files
 dist
