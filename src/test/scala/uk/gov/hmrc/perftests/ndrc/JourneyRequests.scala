@@ -21,6 +21,7 @@ import io.gatling.http.Predef._
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.{HttpConfiguration, ServicesConfiguration}
 import uk.gov.hmrc.perftests.ndrc.utils.{Configuration, RequestUtils}
+import io.gatling.core.session.el._
 
 object JourneyRequests extends HttpConfiguration with ServicesConfiguration with RequestUtils {
 //Representative multi-entry journey
@@ -38,18 +39,18 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
   val submitLogin: HttpRequestBuilder =
     http("Sign in as a user who is applying for NDRC")
       .post(s"${Configuration.authUrl}" + s"${Configuration.authLoginStubEndpoint}")
-      .formParam("redirectionUrl", s"${Configuration.authRedirectURL}")
-      .formParam("credentialStrength", "strong")
-      .formParam("authorityId", "")
-      .formParam("confidenceLevel", "50")
-      .formParam("affinityGroup", "Organisation")
-      .formParam("enrolment[0].name", "HMRC-CTS-ORG")
-      .formParam("enrolment[0].taxIdentifier[0].name", "EORINumber")
-      .formParam("enrolment[0].taxIdentifier[0].value", "GB123456789000")
-      .formParam("enrolment[0].state", "Activated")
+      .formParam("redirectionUrl", s"${Configuration.authRedirectURL}".el[String])
+      .formParam("credentialStrength", "strong".el[String])
+      .formParam("authorityId", "".el[String])
+      .formParam("confidenceLevel", "50".el[String])
+      .formParam("affinityGroup", "Organisation".el[String])
+      .formParam("enrolment[0].name", "HMRC-CTS-ORG".el[String])
+      .formParam("enrolment[0].taxIdentifier[0].name", "EORINumber".el[String])
+      .formParam("enrolment[0].taxIdentifier[0].value", "GB123456789000".el[String])
+      .formParam("enrolment[0].state", "Activated".el[String])
       .check(status.is(303), status.not(404), status.not(500))
-      .check(headerRegex("Location", s"${Configuration.authRedirectURL}"))
-      .check(headerRegex("Set-Cookie", """mdtp=([^"]+)""").saveAs("mdtpCookie"))
+      .check(headerRegex("Location".el[CharSequence], s"${Configuration.authRedirectURL}".el[String]))
+      .check(headerRegex("Set-Cookie".el[CharSequence], """mdtp=([^"]+)""").saveAs("mdtpCookie"))
 
   def navigateToWhatDoYouWantToDoPage: HttpRequestBuilder =
     http("What do you want to do? Page")
@@ -62,8 +63,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Choose journey type")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/what-do-you-want-to-do")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", s"$journeyChoice")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", s"$journeyChoice".el[String])
       .check(status.is(303))
 
   def navigateToImporterOrRepPage: HttpRequestBuilder =
@@ -79,8 +80,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/importer-or-representative"
       )
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", s"$imporrepChoice")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", s"$imporrepChoice".el[String])
       .check(status.is(303))
 
   def navigateToNoEntriesPage: HttpRequestBuilder =
@@ -98,9 +99,9 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/how-many-entries-submitting"
       )
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", s"$noOfEntriesChoice")
-      .formParam("entries", s"$enterNoEntries")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", s"$noOfEntriesChoice".el[String])
+      .formParam("entries", s"$enterNoEntries".el[String])
       .check(status.is(303))
 
   def navigateToRepaymentReasonPage: HttpRequestBuilder =
@@ -114,8 +115,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Choose repayment reason")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/why-are-you-applying-uk")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", s"$repaymentReasonChoice")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", s"$repaymentReasonChoice".el[String])
       .check(status.is(303))
 
   def navigateToEnterDetailsPage: HttpRequestBuilder =
@@ -129,12 +130,12 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Enter entry details")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/oldest-entry-date")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("EPU", "#{epu}")
-      .formParam("EntryNumber", "#{entryNumber}")
-      .formParam("EntryDate.day", "#{entryDay}")
-      .formParam("EntryDate.month", "#{entryMonth}")
-      .formParam("EntryDate.year", "#{entryYear}")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("EPU", "#{epu}".el[String])
+      .formParam("EntryNumber", "#{entryNumber}".el[String])
+      .formParam("EntryDate.day", "#{entryDay}".el[String])
+      .formParam("EntryDate.month", "#{entryMonth}".el[String])
+      .formParam("EntryDate.year", "#{entryYear}".el[String])
       .check(status.is(303))
 
   def navigateToAppRelatePage: HttpRequestBuilder =
@@ -148,8 +149,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Choose Application relate to option")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/application-reason")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value[]", s"$apprelateChoice")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value[]", s"$apprelateChoice".el[String])
       .check(status.is(303))
 
   def navigateToOverpaymentReasonPage: HttpRequestBuilder =
@@ -163,8 +164,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Reason for Overpayment details")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/reason-for-overpayment")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "shoes, jackets")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", "shoes, jackets".el[String])
       .check(status.is(303))
 
   def navigateToReclaimPage: HttpRequestBuilder                =
@@ -178,8 +179,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Choose Reclaim option")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/reclaim")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value[]", s"$reclaimChoice")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value[]", s"$reclaimChoice".el[String])
       .check(status.is(303))
 
   def navigateToCustDutyPage: HttpRequestBuilder =
@@ -193,9 +194,9 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Enter Custom duty")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/customs-duty-overpayment")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("ActualPaidAmount", "100000")
-      .formParam("ShouldHavePaidAmount", "1500")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("ActualPaidAmount", "100000".el[String])
+      .formParam("ShouldHavePaidAmount", "1500".el[String])
       .check(status.is(303))
 
   def navigateToRepaymentAmtSummaryPage: HttpRequestBuilder =
@@ -226,8 +227,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/does-importer-have-eori-number"
       )
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", s"$impEoriChoice")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", s"$impEoriChoice".el[String])
       .check(status.is(303))
 
   def navigateToEnterImpEORIPage: HttpRequestBuilder =
@@ -243,8 +244,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-importer-eori-number"
       )
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "GB123456789123000")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", "GB123456789123000".el[String])
       .check(status.is(303))
 
   def navigateToImpVATPage: HttpRequestBuilder =
@@ -260,8 +261,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/is-importer-vat-registered"
       )
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", s"$impVATChoice")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", s"$impVATChoice".el[String])
       .check(status.is(303))
 
   def navigateToImpNamePage: HttpRequestBuilder =
@@ -275,8 +276,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Enter Importer Name")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/importer-name")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("importerName", "Test importer")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("importerName", _ => "Test importer")
       .check(status.is(303))
 
   def navigateToImpAddressPage: HttpRequestBuilder =
@@ -290,8 +291,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Enter Importer Postcode")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/select-importer-address")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("PostalCode", "M44TJ")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("PostalCode", "M44TJ".el[String])
       .check(status.is(200))
 
 // Representative details
@@ -308,8 +309,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/do-you-have-an-eori-number"
       )
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", s"$repEoriChoice")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", s"$repEoriChoice".el[String])
       .check(status.is(303))
 
   def navigateToEnterRepEORIPage: HttpRequestBuilder =
@@ -323,8 +324,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Enter Representative Eori no")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-your-eori-number")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "GB123456789123")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", "GB123456789123".el[String])
       .check(status.is(303))
 
   def navigateToRepNamePage: HttpRequestBuilder =
@@ -338,9 +339,9 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Enter Rep Name")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/your-details")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("declarantName", "Test Declarant name")
-      .formParam("agentName", "Test Representative name")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("declarantName", "Test Declarant name".el[String])
+      .formParam("agentName", "Test Representative name".el[String])
       .check(status.is(303))
 
   def navigateToRepAddressPage: HttpRequestBuilder =
@@ -354,8 +355,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Enter Importer Postcode")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/your-business-address")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("PostalCode", "BD13ly")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("PostalCode", "BD13ly".el[String])
       .check(status.is(200))
 
 //Contact details
@@ -370,11 +371,11 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Enter Contact Details")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/contact")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value[]", s"$email")
-      .formParam("email", "test@gmail.com")
-      .formParam("value[]", s"$phone")
-      .formParam("phone", "09876543211")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value[]", s"$email".el[String])
+      .formParam("email", "test@gmail.com".el[String])
+      .formParam("value[]", s"$phone".el[String])
+      .formParam("phone", "09876543211".el[String])
       .check(status.is(303))
 
   def navigateToDecRefNoPage: HttpRequestBuilder =
@@ -390,9 +391,9 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/declarant-reference-number"
       )
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "01")
-      .formParam("declarantReferenceNumber", "test123456")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", "01".el[String])
+      .formParam("declarantReferenceNumber", "test123456".el[String])
       .check(status.is(303))
 
   def navigateToWhoToRepayPage: HttpRequestBuilder =
@@ -406,8 +407,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Choose who to repaid")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/repaid")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "02")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", "02".el[String])
       .check(status.is(303))
 
   def navigateToIndirectRepPage: HttpRequestBuilder =
@@ -421,8 +422,8 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Choose indirect representative")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/indirect-representative")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "false")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", "false".el[String])
       .check(status.is(303))
 
   def navigateToBankDetailsPage: HttpRequestBuilder =
@@ -436,10 +437,10 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Enter Bank Details")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/enter-bank-details")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("AccountName", "Megacorp")
-      .formParam("SortCode", "207106")
-      .formParam("AccountNumber", "86563611")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("AccountName", "Megacorp".el[String])
+      .formParam("SortCode", "207106".el[String])
+      .formParam("AccountNumber", "86563611".el[String])
       .check(status.is(303))
 //CYA
   def navigateToCYAPage: HttpRequestBuilder =
@@ -453,7 +454,7 @@ object JourneyRequests extends HttpConfiguration with ServicesConfiguration with
     http("Post Create Case journey")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/check-your-answers")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
       .check(status.is(303))
 
   def navigateToConfirmationPage: HttpRequestBuilder =

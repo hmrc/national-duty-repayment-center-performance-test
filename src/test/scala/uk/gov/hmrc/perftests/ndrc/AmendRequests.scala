@@ -22,6 +22,7 @@ import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.ndrc.JourneyRequests.headers
 import uk.gov.hmrc.perftests.ndrc.utils.{Configuration, RequestUtils}
+import io.gatling.core.session.el._
 
 object AmendRequests extends ServicesConfiguration with RequestUtils {
 
@@ -40,8 +41,8 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/application-reference-number"
       )
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "NDRC2105241644B5A8E7CL6")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", "NDRC2105241644B5A8E7CL6".el[String])
       .check(status.is(303))
 
   def navigateToAmendResponseType: HttpRequestBuilder =
@@ -59,9 +60,9 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
         s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/what-do-you-need-to-do"
       )
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
       //  .formParam("value[]", "supportingDocuments")
-      .formParam("value[]", "furtherInformation")
+      .formParam("value[]", "furtherInformation".el[String])
       .check(status.is(303))
 
   def navigateToFurtherInfoPage: HttpRequestBuilder =
@@ -75,8 +76,8 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
     http("Enter further info")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/further-information")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
-      .formParam("value", "shoes, more jackets")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
+      .formParam("value", "shoes, more jackets".el[String])
       .check(status.is(303))
 
   // CYA
@@ -91,7 +92,7 @@ object AmendRequests extends ServicesConfiguration with RequestUtils {
     http("Enter further info")
       .post(s"${Configuration.baseUrlNDRC}/apply-for-repayment-of-import-duty-and-import-vat/amend/check-answers")
       .headers(headers)
-      .formParam("csrfToken", "#{csrfToken}")
+      .formParam("csrfToken", "#{csrfToken}".el[String])
       .check(status.is(303))
 
   // Confirmation
