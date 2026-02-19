@@ -16,8 +16,9 @@
 
 package uk.gov.hmrc.perftests.ndrc
 
-import io.gatling.core.Predef._
-import io.gatling.http.Predef._
+import io.gatling.core.Predef.*
+import io.gatling.core.session.el.El
+import io.gatling.http.Predef.*
 import io.gatling.http.request.builder.HttpRequestBuilder
 import uk.gov.hmrc.performance.conf.ServicesConfiguration
 import uk.gov.hmrc.perftests.ndrc.utils.RequestUtils
@@ -53,7 +54,7 @@ object FileUploadRequests extends ServicesConfiguration with RequestUtils {
       .bodyPart(StringBodyPart("x-amz-meta-original-filename", s"$fileName"))
       .bodyPart(RawFileBodyPart("file", "data/" + s"$fileName").contentType(s"$fileType"))
       .check(status.is(303))
-      .check(header("Location").saveAs("UpscanResponseSuccess"))
+      .check(header("Location".el[CharSequence]).saveAs("UpscanResponseSuccess"))
 
   def postFileInfoFull(fileName: String, fileType: String): HttpRequestBuilder =
     http("Upload file")
@@ -79,5 +80,5 @@ object FileUploadRequests extends ServicesConfiguration with RequestUtils {
       .bodyPart(StringBodyPart("policy", "#{policy}"))
       .bodyPart(RawFileBodyPart("file", "data/" + s"$fileName").contentType(s"$fileType"))
       .check(status.is(303))
-      .check(header("Location").saveAs("UpscanResponseSuccess"))
+      .check(header("Location".el[CharSequence]).saveAs("UpscanResponseSuccess"))
 }
